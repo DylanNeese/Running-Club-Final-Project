@@ -1,9 +1,9 @@
 # Running-Club-Final-Project
-'''sql
+```sql
 1. SELECT member_id, first_name, last_name, email
-    FROM Members
-    ORDER BY last_name, first_name
-    LIMIT 10;
+FROM Members
+ORDER BY last_name, first_name
+LIMIT 10;
 
    +-----------+------------+-----------+------------------------+
 | member_id | first_name | last_name | email                  |
