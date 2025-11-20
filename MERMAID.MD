@@ -1,36 +1,32 @@
-### Mermaid ER Diagram
-
 ```mermaid
 erDiagram
     Members {
-        INT member_id PK
-        VARCHAR(50) first_name
-        VARCHAR(50) last_name
-        CHAR(1) gender
-        DATE birth_date
-        DATE join_date
-        VARCHAR(100) email
+        int member_id PK
+        varchar first_name
+        varchar last_name
+        char gender
+        date birth_date
+        date join_date
+        varchar email
     }
-
     Races {
-        INT race_id PK
-        VARCHAR(100) race_name
-        DATE race_date
-        VARCHAR(100) location
-        DECIMAL(5,2) distance_km
+        int race_id PK
+        varchar race_name
+        date race_date
+        varchar location
+        decimal distance_km
     }
-
     RaceResults {
-        INT result_id PK
-        INT member_id FK
-        INT race_id FK
-        TIME finish_time
-        INT overall_place
-        INT age_group_place
+        int result_id PK
+        int member_id FK
+        int race_id FK
+        time finish_time
+        int overall_place
+        int age_group_place
     }
 
-    Members ||--o{ RaceResults : participates
-    Races ||--o{ RaceResults : hosts
+    Members ||--o{ RaceResults : "participates in"
+    Races ||--o{ RaceResults : "hosts"
 
-    RaceResults }o--|| Members : "references member_id"
-    RaceResults }o--|| Races : "references race_id"
+    RaceResults }o--|| Members : "member_id"
+    RaceResults }o--|| Races : "race_id"
