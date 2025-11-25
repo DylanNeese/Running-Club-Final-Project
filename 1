@@ -23,3 +23,20 @@ CREATE TABLE `Races` (
   PRIMARY KEY (`race_id`),
   KEY `idx_race_date` (`race_date`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+
+CREATE TABLE `RaceResults` (
+  `result_id` int(11) NOT NULL AUTO_INCREMENT,
+  `member_id` int(11) NOT NULL,
+  `race_id` int(11) NOT NULL,
+  `finish_time` time NOT NULL,
+  `overall_place` int(11) DEFAULT NULL,
+  `age_group_place` int(11) DEFAULT NULL,
+  PRIMARY KEY (`result_id`),
+  KEY `member_id` (`member_id`),
+  KEY `race_id` (`race_id`),
+  CONSTRAINT `RaceResults_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `Members` (`member_id`),
+  CONSTRAINT `RaceResults_ibfk_2` FOREIGN KEY (`race_id`) REFERENCES `Races` (`race_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=345 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+'''
