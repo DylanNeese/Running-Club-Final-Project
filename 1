@@ -1,5 +1,4 @@
 ```sql
-
 CREATE TABLE `Members` (
   `member_id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(50) NOT NULL,
@@ -39,4 +38,4 @@ CREATE TABLE `RaceResults` (
   CONSTRAINT `RaceResults_ibfk_2` FOREIGN KEY (`race_id`) REFERENCES `Races` (`race_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=345 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
-'''
+
