@@ -1,0 +1,25 @@
+```sql
+
+CREATE TABLE `Members` (
+  `member_id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `gender` enum('M','F','X') NOT NULL,
+  `birth_date` date NOT NULL,
+  `join_date` date NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`member_id`),
+  KEY `idx_member_name` (`last_name`,`first_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+
+
+CREATE TABLE `Races` (
+  `race_id` int(11) NOT NULL AUTO_INCREMENT,
+  `race_name` varchar(100) NOT NULL,
+  `race_date` date NOT NULL,
+  `location` varchar(80) NOT NULL,
+  `distance_km` decimal(4,2) NOT NULL,
+  PRIMARY KEY (`race_id`),
+  KEY `idx_race_date` (`race_date`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
