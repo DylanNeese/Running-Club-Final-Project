@@ -72,7 +72,8 @@ INSERT INTO RaceResults (member_id,race_id,finish_time) VALUES
 (5,3,'00:00:00'),(12,3,'00:00:00'),(23,3,'00:00:00'),
 (34,3,'00:00:00'),(45,3,'00:00:00'),(56,3,'00:00:00');
 ROLLBACK;
-       ''
+       
 SELECT COUNT(*) FROM RaceResults WHERE race_id=3 AND member_id IN (5,12,23,34,45,56);
-
+'''
 -- Returns 0
+
