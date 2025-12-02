@@ -58,7 +58,7 @@ erDiagram
     Races ||--o{ RaceResults : "hosts"
 ```
 
-### Create Tables (20 points)
+## Create Tables (20 points)
 
 ```sql
 
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `RaceResults` (
 ) ENGINE=InnoDB AUTO_INCREMENT=345 DEFAULT CHARSET=latin1;
 
 ```
-### Insert Data (20 points)
+## Insert Data (20 points)
 
 ```sql
 -- prj2-insert.sql
@@ -521,9 +521,8 @@ INSERT INTO `RaceResults` VALUES
 
 ```
 
--- prj3-queries.sql
--- Dylan Neese
--- CS415 Final Project - 10 Required Queries with Results
+
+## Queries (60 points)
 
 -- 1. Alphabetical member list
 
