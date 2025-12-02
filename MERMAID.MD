@@ -25,8 +25,5 @@ erDiagram
         int age_group_place
     }
 
-    Members ||--o{ RaceResults : "participates in"
+    Members ||--o{ RaceResults : "participates "
     Races ||--o{ RaceResults : "hosts"
-
-    RaceResults }o--|| Members : "member_id"
-    RaceResults }o--|| Races : "race_id"
