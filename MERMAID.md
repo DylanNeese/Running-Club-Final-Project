@@ -4,6 +4,7 @@
 
 ### Database Summary Report (10 points)
 
+
 ---
 
 ### Database ER Model (40 points)
