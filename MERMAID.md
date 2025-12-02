@@ -37,7 +37,7 @@ erDiagram
 
     Members ||--o{ RaceResults : "participates "
     Races ||--o{ RaceResults : "hosts"
-'''
+```
 
 
 
@@ -48,7 +48,7 @@ erDiagram
 -- 1. Alphabetical member list
 sql'''
 SELECT member_id, first_name, last_name, email FROM Members ORDER BY last_name, first_name LIMIT 10;
-'''
+```
 -- Returns 10 members: Adams → Clark
 
 -- 2. Fastest pace per km
