@@ -631,6 +631,18 @@ ROLLBACK;
 SELECT COUNT(*) FROM RaceResults WHERE race_id=3 AND member_id IN (5,12,23,34,45,56);
 
 ```
-```
+
 -- Returns 0
+
+### Delete Tables (10 points)
+
+```sql
+
+DROP TABLE RaceResults;
+Drop VIEW v_5k_leaderboard;
+DROP TABLE Races;
+DROP TABLE Members;
+
+```
+
 
