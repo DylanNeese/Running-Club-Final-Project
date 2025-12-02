@@ -1,3 +1,12 @@
+# CS415 Database Sample Project – Fall 2025 - Draft
+
+---
+
+### Database Summary Report (10 points)
+
+---
+
+### Database ER Model (40 points)
 
 ```mermaid
 erDiagram
