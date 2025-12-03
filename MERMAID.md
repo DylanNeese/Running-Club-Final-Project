@@ -53,26 +53,26 @@ erDiagram
 
 ### Database Design Description
 
-The database for the Greenwood Road Runners is built around three normalized entities: 'Members' , 'Races' , and 'RaceResults'. Each table stores a focused set of information. Members represent individuals in the running club; races represent official events the club participates in or hosts; race results link the two together. Keeping these entities separate avoids repeating information and makes the structure easier to maintain.
+The database for the Greenwood Road Runners is built around three normalized entities: `Members` , `Races` , and `RaceResults`. Each table stores a focused set of information. Members represent individuals in the running club; races represent official events the club participates in or hosts; race results link the two together. Keeping these entities separate avoids repeating information and makes the structure easier to maintain.
 
 During normalization, one major decision was not to copy member names or race names into the RaceResults table. Instead, the RaceResults table stores only foreign keys (member_id, race_id) along with performance-specific details, such as finish time and placements. This prevents update anomalies—for example, a member updating their last name should only update one row, not hundreds. All fields in each table depend only on the primary key, meaning the design satisfies 3rd Normal Form.
 
 Another design choice was to keep race distance and race date directly in the Races table, rather than breaking them into lookup tables. Since the club works with a manageable number of events each year, keeping race information in a single table is practical and easy for new database users to understand. If needed in the future, this could be expanded to include course difficulty, terrain type, or certification status.
 
-'Members'
+`Members`
 The Members table stores personal and contact information for each club member. It acts as the source of truth for names, demographics, and join dates. All race performances must connect back to a member stored in this table.
 
-'Races'
+`Races`
 The Races table represents each official running event. It contains the race name, date, location, and distance. This table allows staff to track the club’s race calendar and view which events members have completed.
 
-'RaceResults'
+`RaceResults`
 The RaceResults table records each member’s performance in a specific race. It stores the finish time, overall placement, and age-group placement. This table is essential for club reporting, including leaderboards, personal records, and historical performance analysis.
 
 ---
 
 ## Create Tables 
 
-The following SQL creates the 'Members' , 'Races' , and 'RaceResults' tables in the current database. Note that it does not create a database, only the tables.
+The following SQL creates the `Members` , `Races` , and `RaceResults` tables in the current database. Note that it does not create a database, only the tables.
 
 ```sql
 
