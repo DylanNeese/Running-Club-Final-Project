@@ -524,7 +524,10 @@ INSERT INTO `RaceResults` VALUES
 
 ## Queries (60 points)
 
--- 1. Alphabetical member list
+
+### 1. Alphabetical member list
+
+This query returns an ordered list of club members sorted alphabetically by last name and first name. It helps staff quickly access the member directory
 
 ```sql
 
@@ -532,9 +535,10 @@ SELECT member_id, first_name, last_name, email FROM Members ORDER BY last_name, 
 
 ```
 
--- Returns 10 members: Adams → Clark
 
--- 2. Fastest pace per km
+### 2. Fastest pace per km
+
+This query calculates each runner’s pace (minutes per kilometer) using their finish time and race distance, then lists the fastest performances in the club.
 
 ```sql
 
@@ -546,9 +550,10 @@ ORDER BY pace_min_per_km LIMIT 8;
 
 ```
 
--- Liam Garcia: 3.84 min/km
 
--- 3. Races per month
+### 3. Races per month
+
+This query counts how many races occur in each calendar month. It is useful for identifying seasonal trends and planning future events.
 
 ```sql
 
@@ -557,7 +562,9 @@ FROM Races GROUP BY month, MONTH(race_date) ORDER BY races_held DESC;
 
 ```
 
--- 4. Avg 5K time by age group
+### 4. Average 5K time by age group
+
+This query groups runners by age brackets (20s, 30s, etc.) and calculates the average finish time for all 5K races. It helps compare performance between age groups.
 
 ```sql
 
@@ -569,7 +576,9 @@ JOIN Races r ON rr.race_id=r.race_id
 WHERE r.distance_km=5.00 GROUP BY age_group HAVING runners>=5 ORDER BY avg_5k_time;
 
 ```
--- 5. Emma Johnson race history
+### 5. Emma Johnson race history
+
+This query displays Emma Johnson’s complete racing history, including race names, dates, distances, finish times, and placements, sorted chronologically.
 
 ```sql
 
@@ -581,7 +590,9 @@ WHERE m.member_id=1 ORDER BY r.race_date DESC;
 
 ```
 
--- 6. Members who never ran a half marathon
+### 6. Members who never ran a half marathon
+
+This query identifies members who have no recorded results in half marathon races, allowing staff to encourage new distance challenges.
 
 ```sql
 SELECT m.member_id, m.first_name, m.last_name, m.join_date
@@ -590,7 +601,9 @@ WHERE rr.member_id IS NULL ORDER BY m.last_name, m.first_name LIMIT 15;
 
 ```
 
--- 7. Fix Liam Garcia's winning time
+### 7. Fix Liam Garcia's winning time
+
+This query updates incorrect timing data for Liam Garcia in the Turkey Trot 5K, correcting his finish time and placement rankings.
 
 ```sql
 
@@ -599,13 +612,17 @@ WHERE member_id=2 AND race_id=1;
 
 ```
 
--- 8. Remove bad data
+### 8. Remove Incorrect Race Results
+
+This query deletes erroneous entries for selected members in the New Year Resolution 10K, cleaning up inaccurate or duplicate data.
 
 ```sql
 DELETE FROM RaceResults WHERE race_id=3 AND member_id IN (23,34);
 ```
 
--- 9. 5K leaderboard view
+### 9. 5K leaderboard view
+
+This query creates a database view showing each runner’s personal-best 5K time. Staff can use this leaderboard to track records and award rankings.
 
 ```sql
 
@@ -619,7 +636,9 @@ SELECT * FROM v_5k_leaderboard LIMIT 10;
 
 ```
 
--- 10. Transaction with ROLLBACK
+### 10. Transaction with ROLLBACK
+
+This query simulates adding multiple runners to a race, then rolls back the entire transaction to cancel all changes—demonstrating safe error recovery.
 
 ```sql
 START TRANSACTION;
