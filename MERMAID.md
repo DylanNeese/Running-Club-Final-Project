@@ -53,26 +53,26 @@ erDiagram
 
 ### Database Design Description
 
-The database for Foresters Give is built around three normalized entities: `member`, `project`, and `donation`. Each table stores a focused set of information. Members represent students, faculty, or alumni who participate in donating; projects represent fundraising goals or service initiatives; donations link the two together. Keeping these entities separate avoids repeating information and makes the structure easier to maintain.
+The database for the Greenwood Road Runners is built around three normalized entities: 'Members' , 'Races' , and 'RaceResults'. Each table stores a focused set of information. Members represent individuals in the running club; races represent official events the club participates in or hosts; race results link the two together. Keeping these entities separate avoids repeating information and makes the structure easier to maintain.
 
-During normalization, one major decision was not to copy member names or project names into the donation table. Instead, the donation table stores only foreign keys (mid, pid) and donation-specific details, such as amount and date. This avoids update anomalies—for example, a member changing their email should update one row, not dozens. All fields in each table depend only on the primary key, meaning the design satisfies 3rd Normal Form.
+During normalization, one major decision was not to copy member names or race names into the RaceResults table. Instead, the RaceResults table stores only foreign keys (member_id, race_id) along with performance-specific details, such as finish time and placements. This prevents update anomalies—for example, a member updating their last name should only update one row, not hundreds. All fields in each table depend only on the primary key, meaning the design satisfies 3rd Normal Form.
 
-Another design choice was to include a simple status code in the project table rather than placing statuses into a separate lookup table. Since Foresters Give only requires a few basic statuses (such as planned, active, and closed), keeping the field within the project table is both practical and easy for new database students to understand. If needed in the future, this could be expanded into a separate status table.
+Another design choice was to keep race distance and race date directly in the Races table, rather than breaking them into lookup tables. Since the club works with a manageable number of events each year, keeping race information in a single table is practical and easy for new database users to understand. If needed in the future, this could be expanded to include course difficulty, terrain type, or certification status.
 
-`member`
-The member table stores the personal and contact information for each person who donates to Foresters Give. It acts as the source of truth for names, email addresses, and demographics. All donations must connect back to a member in this table.
+'Members'
+The Members table stores personal and contact information for each club member. It acts as the source of truth for names, demographics, and join dates. All race performances must connect back to a member stored in this table.
 
-`project`
-The project table represents each fundraising project or initiative supported by Foresters Give. It contains the project's name, description, fundraising goal, start and end dates, and current status. It lets staff track what projects exist and how active they are.
+'Races'
+The Races table represents each official running event. It contains the race name, date, location, and distance. This table allows staff to track the club’s race calendar and view which events members have completed.
 
-`donation`
-The donation table records each individual donation made by a member to a project. It stores the amount, date, payment method, and any notes. This table is central to all reporting, since totals and summaries come from aggregating donation rows.
+'RaceResults'
+The RaceResults table records each member’s performance in a specific race. It stores the finish time, overall placement, and age-group placement. This table is essential for club reporting, including leaderboards, personal records, and historical performance analysis.
 
 ---
 
 ## Create Tables 
 
-The following SQL creates the `member`, `project`, and `donation` tables in the current database. Note that it does not create a database, only the tables.
+The following SQL creates the 'Members' , 'Races' , and 'RaceResults' tables in the current database. Note that it does not create a database, only the tables.
 
 ```sql
 
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `RaceResults` (
 
 ## Insert Data 
 
-The following SQL inserts sample data for the `member` (x20), `project` (x8), and `donation` (x100) tables in the current database.
+The following SQL inserts sample data for the Members (60), Races (25), and RaceResults (320) tables in the database.
 
 ```sql
 
