@@ -662,7 +662,7 @@ This query updates incorrect timing data for Liam Garcia in the Turkey Trot 5K, 
 
 ```sql
 
-UPDATE RaceResults SET finish_time='00:18:55', overall_place=1, age_group_place=1
+UPDATE RaceResults SET finish_time='00:18:08', overall_place=1, age_group_place=1
 WHERE member_id=2 AND race_id=1;
 
 ```
