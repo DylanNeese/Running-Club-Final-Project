@@ -560,6 +560,7 @@ SELECT member_id, first_name, last_name, email FROM Members ORDER BY last_name, 
 
 **Sample Output**
 ```code
+
 +-----------+------------+-----------+------------------------+
 | member_id | first_name | last_name | email                  |
 +-----------+------------+-----------+------------------------+
