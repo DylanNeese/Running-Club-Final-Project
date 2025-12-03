@@ -1,4 +1,4 @@
-# CS415 Database Sample Project – Fall 2025 - Draft
+# CS415 Database Project – Greenwood Road Runners -
 
 ---
 
@@ -6,13 +6,13 @@
 
 
 
-### Describing the Organization
+### Project Overview
 
-My Organization is called The Greenwood Roade Runners and they are a racing club based in Greenwood, Indiana. They were founded in 2019 and the club currently has 60 active members which range from ages 23 to 60. As of right now the club participates in 20-25 organized races per year. Two of which we host which are the Turkey Trot 5k and the Spring Classic Half Marathon. The President of the club, race director,Membership coordinators, and volunteer timers will handle all the planning, registration and keeping the records in the database. 
+My Organization is called The Greenwood Road Runners and they are a racing club based in Greenwood, Indiana. They were founded in 2019 and the club currently has 60 active members which range from ages 23 to 60. As of right now the club participates in 20-25 organized races per year. Two of which we host which are the Turkey Trot 5k and the Spring Classic Half Marathon. The President of the club, race director,Membership coordinators, and volunteer timers will handle all the planning, registration and keeping the records in the database. 
     
 Our mission as an organization is to promote Health and pushing yourself 1% better everyday. Our Modo is Go One More, which incourages everyone to push past their limits to sucseed. We are inclusive so anyone, any age can join. We still celebrate competetive success through different age groups and club records. This database can give you the average 5k time for runners in their 30's or even top 10 5k times. while also looking back at ones history in races and seeing how much they have improved.
 
-### Users Perspective
+### Users View
 
 From a Users point of view, this database is a single source for everything related to the Club, whether racing or registration. Members and staff can pull up an alphabetical member dirrectory instantly and see every race that has been completed. This will have everything the club has entered including dates, locations, and distances. Also including ones indivitual time, overall place and age group. In one of my quiries Emily Johnson can run it and it will output her race history in chronological order. Another query you can is the 5k leaderboard, so that you can see how fast you need to run in order to make it up their.
 
@@ -21,11 +21,11 @@ Staff will use the database daily. Some examples include the Membership coordina
 
 ---
 
-### Create Tables (20 points)
 
 
 
-### Database ER Model (40 points)
+
+### Database ER Model
 
 ```mermaid
 erDiagram
@@ -58,12 +58,15 @@ erDiagram
     Races ||--o{ RaceResults : "hosts"
 ```
 
-## Create Tables (20 points)
+## Create Tables 
+
+The following SQL creates the `member`, `project`, and `donation` tables in the current database. Note that it does not create a database, only the tables.
 
 ```sql
 
 -- -----------------------------------------------------
 -- Table `Members`
+-- Stores people who participate/registers
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Members` (
   `member_id`   INT NOT NULL AUTO_INCREMENT,
@@ -79,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `Members` (
 
 -- -----------------------------------------------------
 -- Table `Races`
+-- Stores Race Info
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Races` (
   `race_id`     INT NOT NULL AUTO_INCREMENT,
@@ -92,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `Races` (
 
 -- -----------------------------------------------------
 -- Table `RaceResults`
+-- links Members to Races and tells the results 
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `RaceResults` (
   `result_id`       INT NOT NULL AUTO_INCREMENT,
@@ -108,12 +113,15 @@ CREATE TABLE IF NOT EXISTS `RaceResults` (
 ) ENGINE=InnoDB AUTO_INCREMENT=345 DEFAULT CHARSET=latin1;
 
 ```
-## Insert Data (20 points)
+
+---
+
+## Insert Data 
+
+The following SQL inserts sample data for the `member` (x20), `project` (x8), and `donation` (x100) tables in the current database.
 
 ```sql
--- prj2-insert.sql
--- Dylan Neese
--- Inserts all data: 60 members, 25 races, 320+ results
+
 -- -----------------------------------------------------
 -- Data for table `Members`
 -- -----------------------------------------------------
@@ -522,10 +530,11 @@ INSERT INTO `RaceResults` VALUES
 ```
 
 
-## Queries (60 points)
+## Queries 
 
+Required Queries using `member`, `Races`, and `RaceResults` tables.
 
-### 1. Alphabetical member list
+### Query 1 – `SELECT` with `ORDER BY` on two columns
 
 This query returns an ordered list of club members sorted alphabetically by last name and first name. It helps staff quickly access the member directory
 
@@ -535,8 +544,13 @@ SELECT member_id, first_name, last_name, email FROM Members ORDER BY last_name, 
 
 ```
 
+---
 
-### 2. Fastest pace per km
+**Sample Output**
+
+---
+
+### Query 2 – `SELECT` with a calculated field (non-aggregate)
 
 This query calculates each runner’s pace (minutes per kilometer) using their finish time and race distance, then lists the fastest performances in the club.
 
@@ -550,8 +564,13 @@ ORDER BY pace_min_per_km LIMIT 8;
 
 ```
 
+---
 
-### 3. Races per month
+**Sample Output**
+
+---
+
+### Query 3 – `SELECT` using a MariaDB function (non-aggregate)
 
 This query counts how many races occur in each calendar month. It is useful for identifying seasonal trends and planning future events.
 
@@ -562,7 +581,13 @@ FROM Races GROUP BY month, MONTH(race_date) ORDER BY races_held DESC;
 
 ```
 
-### 4. Average 5K time by age group
+---
+
+**Sample Output**
+
+---
+
+### Query 4 – Aggregation with `GROUP BY` and `HAVING`
 
 This query groups runners by age brackets (20s, 30s, etc.) and calculates the average finish time for all 5K races. It helps compare performance between age groups.
 
@@ -576,7 +601,14 @@ JOIN Races r ON rr.race_id=r.race_id
 WHERE r.distance_km=5.00 GROUP BY age_group HAVING runners>=5 ORDER BY avg_5k_time;
 
 ```
-### 5. Emma Johnson race history
+
+---
+
+**Sample Output**
+
+---
+
+### Query 5 – Join of three tables (`member`, `donation`, `project`)
 
 This query displays Emma Johnson’s complete racing history, including race names, dates, distances, finish times, and placements, sorted chronologically.
 
@@ -589,8 +621,13 @@ JOIN Races r ON rr.race_id=r.race_id
 WHERE m.member_id=1 ORDER BY r.race_date DESC;
 
 ```
+---
 
-### 6. Members who never ran a half marathon
+**Sample Output**
+
+---
+
+### Query 6 – `LEFT JOIN` to include projects without donations
 
 This query identifies members who have no recorded results in half marathon races, allowing staff to encourage new distance challenges.
 
@@ -601,7 +638,13 @@ WHERE rr.member_id IS NULL ORDER BY m.last_name, m.first_name LIMIT 15;
 
 ```
 
-### 7. Fix Liam Garcia's winning time
+---
+
+**Sample Output**
+
+---
+
+### Query 7 – `UPDATE` query (change project status)
 
 This query updates incorrect timing data for Liam Garcia in the Turkey Trot 5K, correcting his finish time and placement rankings.
 
@@ -611,16 +654,26 @@ UPDATE RaceResults SET finish_time='00:18:55', overall_place=1, age_group_place=
 WHERE member_id=2 AND race_id=1;
 
 ```
+---
 
-### 8. Remove Incorrect Race Results
+**Sample Output**
+
+---
+
+### Query 8 – `DELETE` query (remove a specific donation)
 
 This query deletes erroneous entries for selected members in the New Year Resolution 10K, cleaning up inaccurate or duplicate data.
 
 ```sql
 DELETE FROM RaceResults WHERE race_id=3 AND member_id IN (23,34);
 ```
+---
 
-### 9. 5K leaderboard view
+**Sample Output**
+
+---
+
+### Query 9 – Create a `VIEW` and use it
 
 This query creates a database view showing each runner’s personal-best 5K time. Staff can use this leaderboard to track records and award rankings.
 
@@ -635,8 +688,13 @@ WHERE r.distance_km=5.00 GROUP BY m.member_id ORDER BY best_5k_time;
 SELECT * FROM v_5k_leaderboard LIMIT 10;
 
 ```
+---
 
-### 10. Transaction with ROLLBACK
+**Sample Output**
+
+---
+
+### Query 10 – Transaction with `ROLLBACK`
 
 This query simulates adding multiple runners to a race, then rolls back the entire transaction to cancel all changes—demonstrating safe error recovery.
 
@@ -651,17 +709,49 @@ SELECT COUNT(*) FROM RaceResults WHERE race_id=3 AND member_id IN (5,12,23,34,45
 
 ```
 
--- Returns 0
+---
 
-### Delete Tables (10 points)
+**Sample Output**
+
+---
+
+### Reports
+
+Connect to an external reporting tool (or export your data) and create two reports.
+
+1. Chart or Graph-based report
+2. Table-based report with Report Title
+
+Use Excel, Access, PowerBI, or any other reporting tool.  Post your report and include a link to each report as a .pdf (or viewable image). 
+In one or two paragraphs, describe the reporting software you used and the purpose of each report.
+
+---
+
+
+### Delete Tables 
 
 ```sql
 
+-- ==========================================
+--  DROP ALL TABLES FOR FORESTERS GIVE
+--  (Donation → Member/Project dependency)
+-- ==========================================
+
 DROP TABLE RaceResults;
-Drop VIEW v_5k_leaderboard;
+DROP VIEW v_5k_leaderboard;
 DROP TABLE Races;
 DROP TABLE Members;
 
 ```
+
+### Poster and Presentation (20 points)
+
+(15 points) Create a poster describing your Database Project using the template provided.  Host poster as .PDF on GitHub, include link to file in your documentation.
+
+[Poster PDF](poster.pdf)
+
+
+(5 points) Deliver a five-minute presentation during finals that describes your database design, demonstrates your SQL queries, 
+and describing any challenges you encountered and insights you gained from the project.
 
 
