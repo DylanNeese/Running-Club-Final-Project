@@ -784,13 +784,31 @@ WHERE member_id = 2 AND race_id = 1;
 This query deletes erroneous entries for selected members in the New Year Resolution 10K, cleaning up inaccurate or duplicate data.
 
 ```sql
-DELETE FROM RaceResults WHERE race_id=3 AND member_id IN (23,34);
+-- BEFORE
+SELECT * FROM RaceResults 
+WHERE race_id = 6 AND member_id IN (7, 41);
+
+-- DELETE
+DELETE FROM RaceResults
+WHERE race_id = 6 AND member_id IN (7, 41);
+
+-- AFTER
+SELECT * FROM RaceResults 
+WHERE race_id = 6 AND member_id IN (7, 41);
 ```
 ---
 
 **Sample Output**
 ```code
++-----------+-----------+---------+-------------+---------------+-----------------+
+| result_id | member_id | race_id | finish_time | overall_place | age_group_place |
++-----------+-----------+---------+-------------+---------------+-----------------+
+|       307 |         7 |       6 | 00:28:35    |            90 |              17 |
++-----------+-----------+---------+-------------+---------------+-----------------+
 
+Query OK, 1 row affected (0.002 sec)
+
+Empty set (0.001 sec
 ```
 ---
 
@@ -836,20 +854,86 @@ SELECT * FROM v_5k_leaderboard LIMIT 10;
 This query simulates adding multiple runners to a race, then rolls back the entire transaction to cancel all changes—demonstrating safe error recovery.
 
 ```sql
-START TRANSACTION;
-INSERT INTO RaceResults (member_id,race_id,finish_time) VALUES
-(5,3,'00:00:00'),(12,3,'00:00:00'),(23,3,'00:00:00'),
-(34,3,'00:00:00'),(45,3,'00:00:00'),(56,3,'00:00:00');
-ROLLBACK;
-       
-SELECT COUNT(*) FROM RaceResults WHERE race_id=3 AND member_id IN (5,12,23,34,45,56);
+-- 1. BEFORE
+SELECT COUNT(*) AS registrations_before
+FROM RaceResults
+WHERE race_id = 3 AND member_id IN (5,12,23,34,45,56);
 
+START TRANSACTION;
+
+
+INSERT INTO RaceResults (member_id, race_id, finish_time, overall_place, age_group_place) VALUES
+(5,  3, '00:00:00', NULL, NULL),
+(12, 3, '00:00:00', NULL, NULL),
+(23, 3, '00:00:00', NULL, NULL),
+(34, 3, '00:00:00', NULL, NULL),
+(45, 3, '00:00:00', NULL, NULL),
+(56, 3, '00:00:00', NULL, NULL);
+
+-- 3. DURING
+SELECT COUNT(*) AS registrations_during_transaction
+FROM RaceResults
+WHERE race_id = 3 AND member_id IN (5,12,23,34,45,56);
+
+
+
+ROLLBACK;
+
+-- 4. AFTER
+SELECT COUNT(*) AS registrations_after_rollback
+FROM RaceResults
+WHERE race_id = 3 AND member_id IN (5,12,23,34,45,56);
 ```
 
 ---
 
 **Sample Output**
 ```code
+MariaDB [neese]> SELECT COUNT(*) AS registrations_before
+    -> FROM RaceResults
+    -> WHERE race_id = 3 AND member_id IN (5,12,23,34,45,56);
++----------------------+
+| registrations_before |
++----------------------+
+|                    0 |
++----------------------+
+1 row in set (0.001 sec)
+
+MariaDB [neese]> START TRANSACTION;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [neese]> INSERT INTO RaceResults (member_id, race_id, finish_time, overall_place, age_group_place) VALUES
+    -> (5,  3, '00:00:00', NULL, NULL),
+    -> (12, 3, '00:00:00', NULL, NULL),
+    -> (23, 3, '00:00:00', NULL, NULL),
+    -> (34, 3, '00:00:00', NULL, NULL),
+    -> (45, 3, '00:00:00', NULL, NULL),
+    -> (56, 3, '00:00:00', NULL, NULL);
+Query OK, 6 rows affected (0.001 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [neese]> SELECT COUNT(*) AS registrations_during_transaction
+    -> FROM RaceResults
+    -> WHERE race_id = 3 AND member_id IN (5,12,23,34,45,56);
++----------------------------------+
+| registrations_during_transaction |
++----------------------------------+
+|                                6 |
++----------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [neese]> ROLLBACK;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [neese]> SELECT COUNT(*) AS registrations_after_rollback
+    -> FROM RaceResults
+    -> WHERE race_id = 3 AND member_id IN (5,12,23,34,45,56);
++------------------------------+
+| registrations_after_rollback |
++------------------------------+
+|                            0 |
++------------------------------+
+1 row in set (0.001 sec)
 
 ```
 ---
