@@ -982,7 +982,7 @@ DROP TABLE Members;
 
 (15 points) Create a poster describing your Database Project using the template provided.  Host poster as .PDF on GitHub, include link to file in your documentation.
 
-[Poster PDF](poster.pdf)
+[Poster PDF](Poster.pdf)
 
 
 (5 points) Deliver a five-minute presentation during finals that describes your database design, demonstrates your SQL queries, 
