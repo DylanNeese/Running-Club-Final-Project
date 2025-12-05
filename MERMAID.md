@@ -942,7 +942,8 @@ MariaDB [neese]> SELECT COUNT(*) AS registrations_after_rollback
 
 1. Chart or Graph-based report
 
-<img width="1155" height="595" alt="image" src="https://github.com/user-attachments/assets/92017833-57c8-4c89-ba57-6d02a0bc75c0" />
+<img width="1158" height="600" alt="image" src="https://github.com/user-attachments/assets/efbcfeb4-944e-4673-aef5-4e0bd6fe422d" />
+
 
 ---
 
