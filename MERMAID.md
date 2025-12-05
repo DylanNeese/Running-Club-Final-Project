@@ -946,7 +946,11 @@ Connect to an external reporting tool (or export your data) and create two repor
 
 <img width="984" height="482" alt="image" src="https://github.com/user-attachments/assets/9102f0ad-4b12-45a6-8dd8-34015c4f0c53" />
 
+---
+
 4. Table-based report with Report Title
+<img width="1728" height="992" alt="image" src="https://github.com/user-attachments/assets/506d072e-8540-4c79-a965-d5fd9b390b42" />
+
 
 Use Excel, Access, PowerBI, or any other reporting tool.  Post your report and include a link to each report as a .pdf (or viewable image). 
 In one or two paragraphs, describe the reporting software you used and the purpose of each report.
