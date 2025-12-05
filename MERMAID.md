@@ -3,7 +3,7 @@
 
 ---
 
-## Database Summary Report (10 points)
+## Database Summary Report 
 
 ### Project Overview
 
@@ -18,7 +18,7 @@ Staff will use the database daily. Some examples include the Membership coordina
 
 ---
 
-### Database ER Model
+## Database ER Model
 
 ```mermaid
 erDiagram
@@ -70,7 +70,7 @@ The RaceResults table records each member’s performance in a specific race. It
 
 ---
 
-## Create Tables 
+### Create Tables 
 
 The following SQL creates the `Members` , `Races` , and `RaceResults` tables in the current database. Note that it does not create a database, only the tables.
 
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `RaceResults` (
 
 ---
 
-## Insert Data 
+### Insert Data 
 
 The following SQL inserts sample data for the Members , Races , and RaceResults  tables in the database.
 
@@ -542,11 +542,11 @@ INSERT INTO `RaceResults` VALUES
 ```
 
 
-## Queries 
+### Queries 
 
 Required Queries using `member`, `Races`, and `RaceResults` tables.
 
-### Query 1 – `SELECT` with `ORDER BY` on two columns
+## Query 1 – `SELECT` with `ORDER BY` on two columns
 
 This query returns an ordered list of club members sorted alphabetically by last name and first name. It helps staff quickly access the member directory
 
@@ -579,7 +579,7 @@ SELECT member_id, first_name, last_name, email FROM Members ORDER BY last_name, 
 
 ---
 
-### Query 2 – `SELECT` with a calculated field (non-aggregate)
+## Query 2 – `SELECT` with a calculated field (non-aggregate)
 
 This query calculates each runner’s pace (minutes per kilometer) using their finish time and race distance, then lists the fastest performances in the club.
 
@@ -612,7 +612,7 @@ ORDER BY pace_min_per_km LIMIT 8;
 ```
 ---
 
-### Query 3 – `SELECT` using a MariaDB function (non-aggregate)
+## Query 3 – `SELECT` using a MariaDB function (non-aggregate)
 
 This query counts how many races occur in each calendar month. It is useful for identifying seasonal trends and planning future events.
 
@@ -647,7 +647,7 @@ FROM Races GROUP BY month, MONTH(race_date) ORDER BY races_held DESC;
 ```
 ---
 
-### Query 4 – Aggregation with `GROUP BY` and `HAVING`
+## Query 4 – Aggregation with `GROUP BY` and `HAVING`
 
 This query groups runners by age brackets (20s, 30s, etc.) and calculates the average finish time for all 5K races. It helps compare performance between age groups.
 
@@ -676,7 +676,7 @@ WHERE r.distance_km=5.00 GROUP BY age_group HAVING runners>=5 ORDER BY avg_5k_ti
 ```
 ---
 
-### Query 5 – Join of three tables (`member`, `donation`, `project`)
+## Query 5 – Join of three tables (`member`, `donation`, `project`)
 
 This query displays Emma Johnson’s complete racing history, including race names, dates, distances, finish times, and placements, sorted chronologically.
 
@@ -706,7 +706,7 @@ WHERE m.member_id=1 ORDER BY r.race_date DESC;
 ```
 ---
 
-### Query 6 – `LEFT JOIN` to include projects without donations
+## Query 6 – `LEFT JOIN` to include projects without donations
 
 This query identifies members who have no recorded results in half marathon races, allowing staff to encourage new distance challenges.
 
@@ -743,7 +743,7 @@ WHERE rr.member_id IS NULL ORDER BY m.last_name, m.first_name LIMIT 15;
 ```
 ---
 
-### Query 7 – `UPDATE` query (change project status)
+## Query 7 – `UPDATE` query (change project status)
 
 This query updates incorrect timing data for Liam Garcia in the Turkey Trot 5K, correcting his finish time and placement rankings.
 
@@ -779,7 +779,7 @@ WHERE member_id = 2 AND race_id = 1;
 ```
 ---
 
-### Query 8 – `DELETE` query (remove a specific donation)
+## Query 8 – `DELETE` query (remove a specific donation)
 
 This query deletes erroneous entries for selected members in the New Year Resolution 10K, cleaning up inaccurate or duplicate data.
 
@@ -812,7 +812,7 @@ Empty set (0.001 sec
 ```
 ---
 
-### Query 9 – Create a `VIEW` and use it
+## Query 9 – Create a `VIEW` and use it
 
 This query creates a database view showing each runner’s personal-best 5K time. Staff can use this leaderboard to track records and award rankings.
 
@@ -849,7 +849,7 @@ SELECT * FROM v_5k_leaderboard LIMIT 10;
 ```
 ---
 
-### Query 10 – Transaction with `ROLLBACK`
+## Query 10 – Transaction with `ROLLBACK`
 
 This query simulates adding multiple runners to a race, then rolls back the entire transaction to cancel all changes—demonstrating safe error recovery.
 
@@ -940,7 +940,6 @@ MariaDB [neese]> SELECT COUNT(*) AS registrations_after_rollback
 
 ### Reports
 
-
 1. Chart or Graph-based report
 
 <img width="1155" height="595" alt="image" src="https://github.com/user-attachments/assets/92017833-57c8-4c89-ba57-6d02a0bc75c0" />
@@ -953,14 +952,16 @@ MariaDB [neese]> SELECT COUNT(*) AS registrations_after_rollback
 
 
 
-In one or two paragraphs, describe the reporting software you used and the purpose of each report.
+---
 
 For these visualizations, I used Microsoft Power BI Online, a business analytics tool that allows users to create interactive dashboards and reports. Power BI enabled me to build professional visual reports without needing desktop software. Using its formatting and modeling tools, I created both a table-based report and a graph-based report that provide meaningful insights from the running club database. The Race Schedule Report (2024–2025) presents all upcoming races in a clean, readable format, showing key details such as race name, location, and date. The Annual Member Enrollment by Gender chart illustrates enrollment trends over time, helping identify participation patterns and gender distribution within the club. Together, these reports demonstrate how Power BI can support both operational reporting and analytical insight.
 
 ---
 
 
-### Delete Tables 
+### Delete Tables
+
+Drop all tables (and view) from database.
 
 ```sql
 
@@ -974,8 +975,9 @@ DROP TABLE Races;
 DROP TABLE Members;
 
 ```
+---
 
-### Poster and Presentation (20 points)
+### Poster and Presentation 
 
 (15 points) Create a poster describing your Database Project using the template provided.  Host poster as .PDF on GitHub, include link to file in your documentation.
 
