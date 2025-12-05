@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `RaceResults` (
 
 ## Insert Data 
 
-The following SQL inserts sample data for the Members (60), Races (25), and RaceResults (320) tables in the database.
+The following SQL inserts sample data for the Members , Races , and RaceResults  tables in the database.
 
 ```sql
 
@@ -940,20 +940,22 @@ MariaDB [neese]> SELECT COUNT(*) AS registrations_after_rollback
 
 ### Reports
 
-Connect to an external reporting tool (or export your data) and create two reports.
 
 1. Chart or Graph-based report
 
-<img width="984" height="482" alt="image" src="https://github.com/user-attachments/assets/9102f0ad-4b12-45a6-8dd8-34015c4f0c53" />
+<img width="1155" height="595" alt="image" src="https://github.com/user-attachments/assets/92017833-57c8-4c89-ba57-6d02a0bc75c0" />
 
 ---
 
-4. Table-based report with Report Title
+2. Table-based report with Report Title
+   
 <img width="1728" height="992" alt="image" src="https://github.com/user-attachments/assets/506d072e-8540-4c79-a965-d5fd9b390b42" />
 
 
-Use Excel, Access, PowerBI, or any other reporting tool.  Post your report and include a link to each report as a .pdf (or viewable image). 
+
 In one or two paragraphs, describe the reporting software you used and the purpose of each report.
+
+For these visualizations, I used Microsoft Power BI Online, a business analytics tool that allows users to create interactive dashboards and reports. Power BI enabled me to build professional visual reports without needing desktop software. Using its formatting and modeling tools, I created both a table-based report and a graph-based report that provide meaningful insights from the running club database. The Race Schedule Report (2024–2025) presents all upcoming races in a clean, readable format, showing key details such as race name, location, and date. The Annual Member Enrollment by Gender chart illustrates enrollment trends over time, helping identify participation patterns and gender distribution within the club. Together, these reports demonstrate how Power BI can support both operational reporting and analytical insight.
 
 ---
 
@@ -963,8 +965,7 @@ In one or two paragraphs, describe the reporting software you used and the purpo
 ```sql
 
 -- ==========================================
---  DROP ALL TABLES FOR FORESTERS GIVE
---  (Donation → Member/Project dependency)
+--  DROP ALL TABLES FOR RUN CLUB
 -- ==========================================
 
 DROP TABLE RaceResults;
