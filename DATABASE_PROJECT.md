@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `RaceResults` (
 
 ### Insert Data 
 
-The following SQL inserts sample data for the Members (60) , Races (24), and RaceResults (308) tables in the database.
+The following SQL inserts sample data for the `Members` (x60) , `Races` (x24), and `RaceResults` (x308) tables in the database.
 
 ```sql
 
@@ -980,12 +980,10 @@ DROP TABLE Members;
 
 ### Poster and Presentation 
 
-(15 points) Create a poster describing your Database Project using the template provided.  Host poster as .PDF on GitHub, include link to file in your documentation.
+
 
 [Poster PDF](Poster.pdf)
 
 
-(5 points) Deliver a five-minute presentation during finals that describes your database design, demonstrates your SQL queries, 
-and describing any challenges you encountered and insights you gained from the project.
 
 
