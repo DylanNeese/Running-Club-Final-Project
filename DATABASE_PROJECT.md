@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `RaceResults` (
 
 ### Insert Data 
 
-The following SQL inserts sample data for the Members , Races , and RaceResults  tables in the database.
+The following SQL inserts sample data for the Members (60) , Races (24), and RaceResults (308) tables in the database.
 
 ```sql
 
